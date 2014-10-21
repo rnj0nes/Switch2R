@@ -4,6 +4,7 @@ Switch2R
 This git holds slides and programs generated for the 2014-2015 Brown AMPHIBIAN Working Group and BRAUN R Users Group lecture series.
 
 October 20, 2014 Introduction and basics (Switch2R01.Rmd)
+  * The Switch2R01.Rmd file is an R/Markdown file. It is meant to be run from R/Studio using the "knit" function. It will run but does not compile correctly with Rcmdr [File > Open R Markdown file ... > (browse to file, enter) > Generate HTML Report button].
 
 November 10, 2014 Clean data with R
 
