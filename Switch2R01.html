@@ -235,13 +235,13 @@ url &lt;-<span class="st"> &quot;http://www.ats.ucla.edu/stat/paperexamples/atki
 data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span class="dt">sep=</span><span class="st">&quot;</span><span class="ch">\t</span><span class="st">&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
 <span class="co"># show the first six lines</span>
 <span class="kw">head</span>(data)</code></pre>
-<pre><code>##   ID SEX THERAPY TIME      DAS PILOT MISS M.IND
-## 1  1   0    -0.5    0 94.51204     1    0     1
-## 2  1   0    -0.5   13 87.53364     1    0     1
-## 3  1   0    -0.5   26 81.46659     1    1     1
-## 4  1   0    -0.5   35 83.44614     1    1     1
-## 5  1   1    -0.5    0 81.27981     1    0     1
-## 6  1   1    -0.5   13 68.80343     1    0     1</code></pre>
+<pre><code>##   ID SEX THERAPY TIME   DAS PILOT MISS M.IND
+## 1  1   0    -0.5    0 94.51     1    0     1
+## 2  1   0    -0.5   13 87.53     1    0     1
+## 3  1   0    -0.5   26 81.47     1    1     1
+## 4  1   0    -0.5   35 83.45     1    1     1
+## 5  1   1    -0.5    0 81.28     1    0     1
+## 6  1   1    -0.5   13 68.80     1    0     1</code></pre>
 </div>
 <div id="other-ways-to-read-in-data" class="slide section level1">
 <h1>Other ways to read in data</h1>
@@ -270,13 +270,13 @@ data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(url, <span c
 ##  Mean   : 67.5   Mean   :0.5   Mean   : 0.0   Mean   :18.50  
 ##  3rd Qu.:101.0   3rd Qu.:1.0   3rd Qu.: 0.5   3rd Qu.:28.25  
 ##  Max.   :134.0   Max.   :1.0   Max.   : 0.5   Max.   :35.00  
-##       DAS             PILOT             MISS             M.IND       
-##  Min.   : 40.66   Min.   :0.0000   Min.   :0.00000   Min.   :0.0000  
-##  1st Qu.: 77.85   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0000  
-##  Median : 88.19   Median :0.0000   Median :0.00000   Median :0.0000  
-##  Mean   : 89.00   Mean   :0.2239   Mean   :0.07836   Mean   :0.1567  
-##  3rd Qu.: 99.12   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.0000  
-##  Max.   :154.31   Max.   :1.0000   Max.   :1.00000   Max.   :1.0000</code></pre>
+##       DAS            PILOT            MISS            M.IND      
+##  Min.   : 40.7   Min.   :0.000   Min.   :0.0000   Min.   :0.000  
+##  1st Qu.: 77.8   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.000  
+##  Median : 88.2   Median :0.000   Median :0.0000   Median :0.000  
+##  Mean   : 89.0   Mean   :0.224   Mean   :0.0784   Mean   :0.157  
+##  3rd Qu.: 99.1   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.000  
+##  Max.   :154.3   Max.   :1.000   Max.   :1.0000   Max.   :1.000</code></pre>
 </div>
 <div id="more-descriptive-statistics" class="slide section level1">
 <h1>More descriptive statistics</h1>
@@ -297,7 +297,7 @@ data %&gt;&gt;%
 <span class="st">  </span><span class="kw">print</span>(<span class="dt">type =</span> <span class="st">&quot;html&quot;</span>, <span class="dt">caption.placement=</span><span class="st">&quot;top&quot;</span>,
         <span class="dt">html.table.attributes =</span> <span class="ot">FALSE</span>)</code></pre>
 <!-- html table generated in R 3.1.1 by xtable 1.7-4 package -->
-<!-- Mon Oct 20 17:00:06 2014 -->
+<!-- Wed Oct 22 04:11:39 2014 -->
 <table FALSE>
 <caption align="top">
 Summary of the data

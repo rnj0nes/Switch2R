@@ -11,11 +11,11 @@ output:
       self-contained: false
 ---
 
-![AMPHIBIAN logo](logo-amphibian.jpg)
+![AMPHIBIAN logo](../logo-amphibian.jpg)
 
 ## 2014-2015 presentation series: Switch2R
 
-- ![R icon](ricon.jpg) 
+- ![R icon](../ricon.jpg) 
 
     - is a *free* general purpose statistical software and programming language
     - is the lingua franca of statisticians
@@ -24,7 +24,7 @@ output:
 
 ---
 
- ![BRAUN logo](logo-braun.png)
+ ![BRAUN logo](../logo-braun.png)
  
   - Narragansett Bay Area R Users
   - http://www.meetup.com/Narragansett-Bay-Area-R-Users/
@@ -208,12 +208,23 @@ findit at Brown full text (http://goo.gl/D6m2ID)
 
 ---
 
-```{r}
+
+```r
 # Read data from UCLA Web site
 url <- "http://www.ats.ucla.edu/stat/paperexamples/atkins_mlm/Atkins_JFP_data.txt"
 data <- read.csv(url, sep="\t", header=TRUE)
 # show the first six lines
 head(data)
+```
+
+```
+##   ID SEX THERAPY TIME   DAS PILOT MISS M.IND
+## 1  1   0    -0.5    0 94.51     1    0     1
+## 2  1   0    -0.5   13 87.53     1    0     1
+## 3  1   0    -0.5   26 81.47     1    1     1
+## 4  1   0    -0.5   35 83.45     1    1     1
+## 5  1   1    -0.5    0 81.28     1    0     1
+## 6  1   1    -0.5   13 68.80     1    0     1
 ```
 
 ---
@@ -234,16 +245,34 @@ head(data)
 ---
 
 ## Basic descriptive statitics
-```{r}
+
+```r
 summary(data)
+```
+
+```
+##        ID             SEX         THERAPY          TIME      
+##  Min.   :  1.0   Min.   :0.0   Min.   :-0.5   Min.   : 0.00  
+##  1st Qu.: 34.0   1st Qu.:0.0   1st Qu.:-0.5   1st Qu.: 9.75  
+##  Median : 67.5   Median :0.5   Median : 0.0   Median :19.50  
+##  Mean   : 67.5   Mean   :0.5   Mean   : 0.0   Mean   :18.50  
+##  3rd Qu.:101.0   3rd Qu.:1.0   3rd Qu.: 0.5   3rd Qu.:28.25  
+##  Max.   :134.0   Max.   :1.0   Max.   : 0.5   Max.   :35.00  
+##       DAS            PILOT            MISS            M.IND      
+##  Min.   : 40.7   Min.   :0.000   Min.   :0.0000   Min.   :0.000  
+##  1st Qu.: 77.8   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.000  
+##  Median : 88.2   Median :0.000   Median :0.0000   Median :0.000  
+##  Mean   : 89.0   Mean   :0.224   Mean   :0.0784   Mean   :0.157  
+##  3rd Qu.: 99.1   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.000  
+##  Max.   :154.3   Max.   :1.000   Max.   :1.0000   Max.   :1.000
 ```
 
 ---
 
 # More descriptive statistics
 
-```{r, echo=TRUE, results='asis'}
 
+```r
 library(pipeR)
 library(xtable)
 library(plyr)
@@ -260,10 +289,22 @@ data %>>%
          digits=2) %>>%
   print(type = "html", caption.placement="top",
         html.table.attributes = FALSE)
-  
-
-
 ```
+
+<!-- html table generated in R 3.1.1 by xtable 1.7-3 package -->
+<!-- Mon Oct 20 21:51:23 2014 -->
+<TABLE FALSE>
+<CAPTION ALIGN="top"> Summary of the data </CAPTION>
+<TR> <TH>  </TH> <TH> mean </TH> <TH> sd </TH> <TH> median </TH> <TH> min </TH> <TH> max </TH> <TH> n </TH>  </TR>
+  <TR> <TD align="right"> ID </TD> <TD align="right"> 67.50 </TD> <TD align="right"> 38.70 </TD> <TD align="right"> 67.50 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 134.00 </TD> <TD align="right"> 1072 </TD> </TR>
+  <TR> <TD align="right"> SEX </TD> <TD align="right"> 0.50 </TD> <TD align="right"> 0.50 </TD> <TD align="right"> 0.50 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 1072 </TD> </TR>
+  <TR> <TD align="right"> THERAPY </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.50 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> -0.50 </TD> <TD align="right"> 0.50 </TD> <TD align="right"> 1072 </TD> </TR>
+  <TR> <TD align="right"> TIME </TD> <TD align="right"> 18.50 </TD> <TD align="right"> 13.24 </TD> <TD align="right"> 19.50 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 35.00 </TD> <TD align="right"> 1072 </TD> </TR>
+  <TR> <TD align="right"> DAS </TD> <TD align="right"> 89.00 </TD> <TD align="right"> 16.67 </TD> <TD align="right"> 88.19 </TD> <TD align="right"> 40.66 </TD> <TD align="right"> 154.31 </TD> <TD align="right"> 1072 </TD> </TR>
+  <TR> <TD align="right"> PILOT </TD> <TD align="right"> 0.22 </TD> <TD align="right"> 0.42 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 1072 </TD> </TR>
+  <TR> <TD align="right"> MISS </TD> <TD align="right"> 0.08 </TD> <TD align="right"> 0.27 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 1072 </TD> </TR>
+  <TR> <TD align="right"> M.IND </TD> <TD align="right"> 0.16 </TD> <TD align="right"> 0.36 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 0.00 </TD> <TD align="right"> 1.00 </TD> <TD align="right"> 1072 </TD> </TR>
+   </TABLE>
 
 ---
 
