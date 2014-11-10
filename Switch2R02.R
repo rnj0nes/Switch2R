@@ -101,7 +101,7 @@ head(data[,c("year","month","day","date")])
 
 
 ## ------------------------------------------------------------------------
-work <- "c:/work/shows/switch2r" # my working folder
+work <- "c:/work/shows/switch2r" # my working folder you edit here
 setwd(work) # change to it
 getwd() # check it
 
@@ -122,8 +122,66 @@ codebookpath <- file.path(work,"codebook.html")
 
 
 ## ------------------------------------------------------------------------
-psitems <- c("PS1A", "PS1B", "PS1C", "PS1D", "PS1E", "PS1F")
-describe(spssdata[psitems])
+PSitems <- c("PS1A", "PS1B", "PS1C", "PS1D", "PS1E", "PS1F")
+describe(spssdata[PSitems])
+
+
+## ------------------------------------------------------------------------
+table(spssdata$PS1A)
+
+
+## ------------------------------------------------------------------------
+spssdata$count.ok <- (spssdata$PS1A==1)+
+  (spssdata$PS1B==1)+(spssdata$PS1C==1)+
+  (spssdata$PS1D==1)+(spssdata$PS1E==1)+
+  (spssdata$PS1F==1)
+summary(spssdata$count.ok)
+
+
+## ------------------------------------------------------------------------
+spssdata$check <- paste0(as.character(spssdata$PS1A),
+  as.character(spssdata$PS1B),as.character(spssdata$PS1C),
+  as.character(spssdata$PS1D),as.character(spssdata$PS1E),
+  as.character(spssdata$PS1F))
+
+
+## ------------------------------------------------------------------------
+head(spssdata[which(spssdata$count==0),c("check","count.ok")])
+
+
+## ------------------------------------------------------------------------
+head(spssdata[which(spssdata$count==1),c("check","count.ok")])
+
+
+## ------------------------------------------------------------------------
+head(spssdata[which(spssdata$count==2),c("check","count.ok")])
+
+
+## ------------------------------------------------------------------------
+head(spssdata[which(spssdata$count==3),c("check","count.ok")])
+
+
+## ------------------------------------------------------------------------
+head(spssdata[which(spssdata$count==4),c("check","count.ok")])
+
+
+## ------------------------------------------------------------------------
+head(spssdata[which(spssdata$count==5),c("check","count.ok")])
+
+
+## ------------------------------------------------------------------------
+head(spssdata[which(spssdata$count==6),c("check","count.ok")])
+
+
+## ------------------------------------------------------------------------
+psitems <- c("ps1a.i", "ps1b.i", "ps1c.i", "ps1d.i", "ps1e.i", "ps1f.i")
+# Make indicator versions of response items
+spssdata$ps1a.i <- as.numeric(spssdata$PS1A==1)
+spssdata$ps1b.i <- as.numeric(spssdata$PS1B==1)
+spssdata$ps1c.i <- as.numeric(spssdata$PS1C==1)
+spssdata$ps1d.i <- as.numeric(spssdata$PS1D==1)
+spssdata$ps1e.i <- as.numeric(spssdata$PS1E==1)
+spssdata$ps1f.i <- as.numeric(spssdata$PS1F==1)
 
 
 ## ------------------------------------------------------------------------
@@ -131,9 +189,8 @@ key <- c(1,1,1,1,1,1) # the "right" answers
 results <- scoreItems(
   items = spssdata[psitems],
   keys = key, 
-  totals = TRUE, 
-  missing = TRUE, # missing data are imputed
-  impute = "none"  # person's non-missing mean response used for missing
+  missing = TRUE , impute = "none"  # person's non-missing mean
+  #                                   response used for missing
   )
 
 
@@ -143,6 +200,21 @@ results
 
 ## ------------------------------------------------------------------------
 str(results)
+
+
+## ------------------------------------------------------------------------
+summary(results$score)
+
+
+## ------------------------------------------------------------------------
+results$pscount <- 6*results$score
+summary(results$pscount)
+
+
+## ------------------------------------------------------------------------
+spssdata$pscount.master <- scoreItems(items = spssdata[psitems],
+  keys = key, missing = TRUE , impute = "none")[[1]]*6
+summary(spssdata$pscount.master)
 
 
 ## ------------------------------------------------------------------------
@@ -160,9 +232,5 @@ alpha <- round(results$alpha,2)
 ## ------------------------------------------------------------------------
 str(results$response.freq)
 results$response.freq
-
-
-## ------------------------------------------------------------------------
-spssdata$pscount <- results$score 
 
 

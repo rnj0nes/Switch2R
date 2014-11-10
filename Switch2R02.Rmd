@@ -13,7 +13,7 @@ output:
 
 ![AMPHIBIAN logo](logo-amphibian.jpg)
 
-## 2014-2015 presentation series: Switch2R
+# 2014-2015 presentation series: Switch2R
 
   - October 2014: R basics 
   - November 2014: Clean data with R
@@ -24,6 +24,12 @@ output:
   - April 2015: GIS with R 
   - May 2015: Power and sample size
   - June, July Aug. 2015: Summer break
+
+---
+
+# Where to find code
+
+ on [github](https://github.com/rnj0nes/Switch2R) (https://github.com/rnj0nes/Switch2R)
 
 ---
 
@@ -220,6 +226,12 @@ tab(data$tx,data$therapy)
 
 And anyway the coding looks right. But notice the variable names are
 now the not-so-helpful "r" and "c". So whatever.
+
+---
+
+# Watch me do this with *Rcmdr*
+
+[Link to video](http://youtu.be/VjpsxXxhi7o)
 
 ---
 
@@ -422,8 +434,8 @@ Each coded 1=Yes, 5=No
 # Look at the data
 
 ```{r}
-psitems <- c("PS1A", "PS1B", "PS1C", "PS1D", "PS1E", "PS1F")
-describe(spssdata[psitems])
+PSitems <- c("PS1A", "PS1B", "PS1C", "PS1D", "PS1E", "PS1F")
+describe(spssdata[PSitems])
 ```
 
 Looks like a skip pattern
@@ -447,16 +459,151 @@ nonaffective psychosis in the National Comorbidity Survey Replication
 
 ---
 
-# Sum score
+# Right ways and wrong ways to make a sum score
+
+Remember
+```{r}
+table(spssdata$PS1A)
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+This works
+```{}
+spssdata$count.ok <- (spssdata$PS1A==1)+
+  (spssdata$PS1B==1)+(spssdata$PS1C==1)+
+  (spssdata$PS1D==1)+(spssdata$PS1E==1)+
+  (spssdata$PS1F==1)
+```
+---
+
+# Right ways and wrong ways to make a sum score
+
+This does not
+```{}
+spssdata$count.notok <- (spssdata$PS1A==1)
+  +(spssdata$PS1B==1)
+  +(spssdata$PS1C==1)
+  +(spssdata$PS1D==1)
+  +(spssdata$PS1E==1)
+  +(spssdata$PS1F==1)
+```
+---
+
+# Right ways and wrong ways to make a sum score
+
+See
+```{r}
+spssdata$count.ok <- (spssdata$PS1A==1)+
+  (spssdata$PS1B==1)+(spssdata$PS1C==1)+
+  (spssdata$PS1D==1)+(spssdata$PS1E==1)+
+  (spssdata$PS1F==1)
+summary(spssdata$count.ok)
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+spssdata$check <- paste0(as.character(spssdata$PS1A),
+  as.character(spssdata$PS1B),as.character(spssdata$PS1C),
+  as.character(spssdata$PS1D),as.character(spssdata$PS1E),
+  as.character(spssdata$PS1F))
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+head(spssdata[which(spssdata$count==0),c("check","count.ok")])
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+head(spssdata[which(spssdata$count==1),c("check","count.ok")])
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+head(spssdata[which(spssdata$count==2),c("check","count.ok")])
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+head(spssdata[which(spssdata$count==3),c("check","count.ok")])
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+head(spssdata[which(spssdata$count==4),c("check","count.ok")])
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+head(spssdata[which(spssdata$count==5),c("check","count.ok")])
+```
+
+---
+
+# Right ways and wrong ways to make a sum score
+
+Let's check
+```{r}
+head(spssdata[which(spssdata$count==6),c("check","count.ok")])
+```
+
+---
+
+# Using *scoreItems* from package *psych*
+
+```{r}
+psitems <- c("ps1a.i", "ps1b.i", "ps1c.i", "ps1d.i", "ps1e.i", "ps1f.i")
+# Make indicator versions of response items
+spssdata$ps1a.i <- as.numeric(spssdata$PS1A==1)
+spssdata$ps1b.i <- as.numeric(spssdata$PS1B==1)
+spssdata$ps1c.i <- as.numeric(spssdata$PS1C==1)
+spssdata$ps1d.i <- as.numeric(spssdata$PS1D==1)
+spssdata$ps1e.i <- as.numeric(spssdata$PS1E==1)
+spssdata$ps1f.i <- as.numeric(spssdata$PS1F==1)
+```
+
+---
+
+# Using *scoreItems* from package *psych*
 
 ```{r}
 key <- c(1,1,1,1,1,1) # the "right" answers
 results <- scoreItems(
   items = spssdata[psitems],
   keys = key, 
-  totals = TRUE, 
-  missing = TRUE, # missing data are imputed
-  impute = "none"  # person's non-missing mean response used for missing
+  missing = TRUE , impute = "none"  # person's non-missing mean
+  #                                   response used for missing
   )
 ```
 
@@ -478,6 +625,34 @@ str(results)
 
 ---
 
+# Using *scoreItems* from package *psych*
+
+```{r}
+summary(results$score)
+```
+
+---
+
+# Using *scoreItems* from package *psych*
+
+```{r}
+results$pscount <- 6*results$score
+summary(results$pscount)
+```
+
+---
+
+# But
+
+How do we get *results$pscount* back into the working data set?
+
+```{r}
+spssdata$pscount.master <- scoreItems(items = spssdata[psitems],
+  keys = key, missing = TRUE , impute = "none")[[1]]*6
+summary(spssdata$pscount.master)
+```
+
+---
 # Tabulate missing values
 
 ```{r}
@@ -520,13 +695,6 @@ str(results$response.freq)
 results$response.freq
 ```
 
----
-
-# Add to working data file
-
-```{r}
-spssdata$pscount <- results$score 
-```
 ---
 
 # Review of things we accomplished today
