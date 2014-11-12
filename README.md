@@ -10,7 +10,7 @@ November 10, 2014 *Clean data with R*
   * Switch2R02.RMD
   * Also see Switch2R02.R (without markdown)
   * and Switch2R02.PDF (PDF slides from markdown file)
-  * 
+
 December 8, 2014 *Analysis with R*
 
 January 12, 2015 *Graphics 1/2:* base, lattice
